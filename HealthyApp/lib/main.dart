@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'customPaints/customPaints.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,101 +9,108 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        body: HomePage(),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  // HomePage({Key key}) : super (key: Key);
+class HomePage extends StatelessWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        CustomPaint(
+          painter: UpperSmallCircle(),
+          size: Size.fromHeight(200),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: CustomPaint(
+            painter: LowerBigCircle(),
+            size: Size.fromHeight(370),
+          ),
+        ),
+        Column(
+          children: <Widget>[
+            BarWidget(isSettingPage: false),
+            TitleWidget(title: 'Drink'),
+          ],
+        ),
+      ],
+    );
+  }
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  AnimationController controller;
-  bool isPlaying = false;
+class TitleWidget extends StatelessWidget {
+  TitleWidget({
+    Key key,
+    @required this.title,
+  }) : super(key: key);
 
-  _onpressed() {
-    if (isPlaying == false) {
-      isPlaying = true;
-      controller.forward();
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Text(
+            '$title',
+            style: TextStyle(
+              fontSize: 40.0,
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BarWidget extends StatelessWidget {
+  BarWidget({
+    Key key,
+    @required this.isSettingPage,
+  }) : super(key: key);
+
+  final bool isSettingPage;
+  Icon icon = Icon(
+    Icons.menu,
+    color: Colors.black,
+  );
+
+  Icon _iconUsed() {
+    if (isSettingPage) {
+      return icon = Icon(
+        Icons.remove,
+        color: Colors.white,
+      );
     } else {
-      isPlaying = false;
-      controller.reverse();
+      return icon = Icon(
+        Icons.menu,
+        color: Colors.black,
+      );
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    var animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    controller = animationController;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment(0.0, -1.0),
-            end: Alignment(0.0, 0.9),
-            colors: <Color>[
-              Colors.deepOrangeAccent,
-              // Colors.amber,
-              Colors.purple,
-              Colors.blueAccent,
-            ],
+    return Expanded(
+      flex: 2,
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: Container(
+          padding: EdgeInsets.only(right: 20.0),
+          child: IconButton(
+            icon: _iconUsed(),
+            onPressed: () {},
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: IconButton(
-                  iconSize: 35.0,
-                  icon: AnimatedIcon(
-                    icon: AnimatedIcons.menu_close,
-                    progress: controller,
-                  ),
-                  onPressed: () => _onpressed(),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Text(
-                'Drink',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  color: Colors.white,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(),
-            ),
-          ],
         ),
       ),
     );
