@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'customPaints/customPaints.dart';
+import 'repeatedWidget.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,10 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: HomePage(),
-      ),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -21,96 +19,193 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        CustomPaint(
-          painter: UpperSmallCircle(),
-          size: Size.fromHeight(200),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: CustomPaint(
-            painter: LowerBigCircle(),
-            size: Size.fromHeight(370),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: <Widget>[
+          CustomPaint(
+            painter: UpperSmallCircle(),
+            size: Size.fromHeight(200),
           ),
-        ),
-        Column(
-          children: <Widget>[
-            BarWidget(isSettingPage: false),
-            TitleWidget(title: 'Drink'),
-          ],
-        ),
-      ],
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: CustomPaint(
+              painter: LowerBigCircle(),
+              size: Size.fromHeight(370),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              BarWidget(isSettingPage: false, index: 0),
+              TitleWidget(title: 'Drink', color: Colors.white,),
+              HomePageMainPart(),
+              EatHealthyWidget(),
+              BeHealthyWidget(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
 
-class TitleWidget extends StatelessWidget {
-  TitleWidget({
+class HomePageMainPart extends StatelessWidget {
+  HomePageMainPart({
     Key key,
-    @required this.title,
   }) : super(key: key);
 
-  final String title;
+  int _count = 1;
+  int _countHour = 1;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 1,
+      flex: 5,
       child: Container(
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            '$title',
-            style: TextStyle(
-              fontSize: 40.0,
-              decoration: TextDecoration.underline,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 4,
+              child: Container(
+                child: Row(
+                  children: <Widget>[
+                    for (int i = 1; i < _count; i++)
+                      Expanded(
+                        child: Icon(
+                          Icons.local_drink,
+                          color: Colors.black,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
-          ),
+            Expanded(
+              flex: 2,
+              child: Table(
+                children: <TableRow>[
+                  TableRow(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: IconButton(
+                                icon: Icon(
+                                  Icons.remove,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {}),
+                          ),
+                          Expanded(
+                            child: Text('$_count'),
+                          ),
+                          Expanded(
+                            child: IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {}),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: IconButton(
+                                icon: Icon(
+                                  Icons.remove,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {}),
+                          ),
+                          Expanded(
+                            child: Text('$_countHour'),
+                          ),
+                          Expanded(
+                            child: IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {}),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  TableRow(
+                    children: <Widget>[
+                      Text('Add Bottle'),
+                      Text('In Hour'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class BarWidget extends StatelessWidget {
-  BarWidget({
+class BeHealthyWidget extends StatelessWidget {
+  const BeHealthyWidget({
     Key key,
-    @required this.isSettingPage,
   }) : super(key: key);
-
-  final bool isSettingPage;
-  Icon icon = Icon(
-    Icons.menu,
-    color: Colors.black,
-  );
-
-  Icon _iconUsed() {
-    if (isSettingPage) {
-      return icon = Icon(
-        Icons.remove,
-        color: Colors.white,
-      );
-    } else {
-      return icon = Icon(
-        Icons.menu,
-        color: Colors.black,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: Align(
-        alignment: Alignment.bottomRight,
-        child: Container(
-          padding: EdgeInsets.only(right: 20.0),
-          child: IconButton(
-            icon: _iconUsed(),
-            onPressed: () {},
-          ),
+      child: Container(
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 5,
+              child: Container(
+                child: Text('Info'),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: Text('StrechImage'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EatHealthyWidget extends StatelessWidget {
+  const EatHealthyWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Container(
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: Text('vegeImage'),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Container(
+                child: Text('Info...'),
+              ),
+            ),
+          ],
         ),
       ),
     );
