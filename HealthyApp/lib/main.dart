@@ -1,3 +1,4 @@
+import 'recipePages/recipePage.dart';
 import 'package:flutter/material.dart';
 import 'customPaints/customPaints.dart';
 import 'repeatedWidget.dart';
@@ -23,6 +24,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
+          // FIXME: Try to make animated transition
           CustomPaint(
             painter: UpperSmallCircle(),
             size: Size.fromHeight(200),
@@ -36,8 +38,8 @@ class HomePage extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              BarWidget(isSettingPage: false, index: 0),
-              TitleWidget(title: 'Drink', color: Colors.white,),
+              BarWidget(isSettingPage: false),
+              TitleWidget(title: 'Drink', color: Colors.white),
               HomePageMainPart(),
               EatHealthyWidget(),
               BeHealthyWidget(),
@@ -49,13 +51,37 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomePageMainPart extends StatelessWidget {
+class HomePageMainPart extends StatefulWidget {
   HomePageMainPart({
     Key key,
   }) : super(key: key);
 
+  @override
+  _HomePageMainPartState createState() => _HomePageMainPartState();
+}
+
+class _HomePageMainPartState extends State<HomePageMainPart> {
+  bool _isBottle = true;
+  Icon icon;
   int _count = 1;
   int _countHour = 1;
+
+// TODO: Make Custom bottle and glass icon
+  Icon _changeBetweenBottleAndGlass() {
+    if (_isBottle){
+      printBottleStatus();
+      icon = Icon(Icons.ac_unit, color: Colors.black);
+    }else{
+      printBottleStatus();
+      icon = Icon(Icons.local_drink, color: Colors.black);
+    }
+      
+    return icon;
+  }
+
+  void printBottleStatus() {
+    print(_isBottle);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +95,9 @@ class HomePageMainPart extends StatelessWidget {
               child: Container(
                 child: Row(
                   children: <Widget>[
-                    for (int i = 1; i < _count; i++)
+                    for (int i = 1; i <= _count; i++)
                       Expanded(
-                        child: Icon(
-                          Icons.local_drink,
-                          color: Colors.black,
-                        ),
+                        child: _changeBetweenBottleAndGlass(),
                       ),
                   ],
                 ),
@@ -88,13 +111,37 @@ class HomePageMainPart extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
+                          // FIXME: Make attractive
                           Expanded(
                             child: IconButton(
                                 icon: Icon(
                                   Icons.remove,
                                   color: Colors.black,
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  setState(() {
+                                    if (_isBottle) {
+                                      if (_count <= 1) {
+                                        _count = 1;
+                                      } else {
+                                        _count--;
+                                      }
+                                    } else {
+                                      if (_count <= 4) {
+                                        _count = 4;
+                                        Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'At least 4 glass of water is needed'),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+                                      } else {
+                                        _count--;
+                                      }
+                                    }
+                                  });
+                                }),
                           ),
                           Expanded(
                             child: Text('$_count'),
@@ -105,19 +152,60 @@ class HomePageMainPart extends StatelessWidget {
                                   Icons.add,
                                   color: Colors.black,
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  setState(() {
+                                    if (_isBottle) {
+                                      if (_count >= 5) {
+                                        _count = 5;
+                                        // FIXME: Try to experiment with options like flushbar or alert too
+                                        Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'More than $_count Bottle per day is not good for heath'),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+                                      } else {
+                                        _count++;
+                                      }
+                                    } else {
+                                      if (_count >= 20) {
+                                        _count = 20;
+                                        // FIXME: Try to experiment with options like flushbar or alert too
+                                        Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'More than $_count Glass per day is not good for heath'),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+                                      } else {
+                                        _count++;
+                                      }
+                                    }
+                                  });
+                                }),
                           ),
                         ],
                       ),
                       Row(
                         children: <Widget>[
+                          // FIXME: Make attractive
                           Expanded(
                             child: IconButton(
                                 icon: Icon(
                                   Icons.remove,
                                   color: Colors.black,
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  setState(() {
+                                    if (_countHour <= 1) {
+                                      _countHour = 1;
+                                    } else {
+                                      _countHour--;
+                                    }
+                                  });
+                                }),
                           ),
                           Expanded(
                             child: Text('$_countHour'),
@@ -128,13 +216,30 @@ class HomePageMainPart extends StatelessWidget {
                                   Icons.add,
                                   color: Colors.black,
                                 ),
-                                onPressed: () {}),
+                                onPressed: () {
+                                  setState(() {
+                                    if (_countHour >= 3) {
+                                      _countHour = 3;
+                                      // FIXME: Try to experiment with options like flushbar or alert too
+                                      Scaffold.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              '$_countHour Hour gap is the most for water drinking gap'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    } else {
+                                      _countHour++;
+                                    }
+                                  });
+                                }),
                           ),
                         ],
                       ),
                     ],
                   ),
                   TableRow(
+                    // TODO: Make them more attractive and positioned properly
                     children: <Widget>[
                       Text('Add Bottle'),
                       Text('In Hour'),
@@ -162,12 +267,14 @@ class BeHealthyWidget extends StatelessWidget {
       child: Container(
         child: Row(
           children: <Widget>[
+            // FIXME: Make info more attractive
             Expanded(
               flex: 5,
               child: Container(
                 child: Text('Info'),
               ),
             ),
+            // FIXME: Make a strech icon instead of text
             Expanded(
               flex: 2,
               child: Container(
@@ -193,12 +300,23 @@ class EatHealthyWidget extends StatelessWidget {
       child: Container(
         child: Row(
           children: <Widget>[
+            // FIXME: Make a vege icon instead of text
             Expanded(
               flex: 2,
               child: Container(
-                child: Text('vegeImage'),
+                child: GestureDetector(
+                  child: Text('vegeImage'),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => RecipePage(),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
+            // FIXME: Make info more attractive
             Expanded(
               flex: 5,
               child: Container(
