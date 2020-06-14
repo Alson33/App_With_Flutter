@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'settingPage.dart';
-import 'main.dart';
+import './settings/settingPage.dart';
 
 class TitleWidget extends StatelessWidget {
   TitleWidget({
@@ -17,6 +16,7 @@ class TitleWidget extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Container(
+        padding: EdgeInsets.only(left: 30.0),
         child: Align(
           alignment: Alignment.bottomLeft,
           child: Text(
@@ -37,40 +37,33 @@ class BarWidget extends StatefulWidget {
   BarWidget({
     Key key,
     @required this.isSettingPage,
-    @required this.index,
+    // @required this.index,
   }) : super(key: key);
 
   final bool isSettingPage;
-  final int index;
+  // final int index;
 
   @override
   _BarWidgetState createState() => _BarWidgetState();
 }
 
 class _BarWidgetState extends State<BarWidget> {
-
-  List<Widget> _pageRoute = [
-    SettingPage(),
-    HomePage(),
-  ];
-
-  Icon icon = Icon(
-    Icons.menu,
-    color: Colors.black,
-  );
+  Icon icon;
 
   Icon _iconUsed() {
     if (widget.isSettingPage) {
-      return icon = Icon(
+      icon = Icon(
         Icons.clear,
         color: Colors.white,
       );
     } else {
-      return icon = Icon(
+      icon = Icon(
         Icons.menu,
         color: Colors.black,
       );
     }
+
+    return icon;
   }
 
   @override
@@ -87,11 +80,16 @@ class _BarWidgetState extends State<BarWidget> {
           child: IconButton(
             icon: _iconUsed(),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => _pageRoute[widget.index],
-                ),
-              );
+              if (!widget.isSettingPage) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SettingPage(),
+                  ),
+                );
+              } else {
+                // TODO: Add some data's to pass when returned from setting page
+                Navigator.pop(context, );
+              }
             },
           ),
         ),
