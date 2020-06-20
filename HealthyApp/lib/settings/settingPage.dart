@@ -1,4 +1,4 @@
-import 'package:HealthyApp/repeatedWidget.dart';
+import 'package:HealthyApp/widgets/repeatedWidget.dart';
 import 'package:flutter/material.dart';
 import '../customPaints/customPaints.dart';
 
@@ -28,10 +28,6 @@ class SettingPage extends StatelessWidget {
                 flex: 4,
                 child: Column(
                   children: <Widget>[
-                    Divider(
-                      color: Colors.grey[100],
-                      height: 2.0,
-                    ),
                     // TODO: Make IconButtons for the objectiveIcon
                     SettingPageMainPart(
                         objectiveText: 'Change the color theme',
@@ -42,10 +38,6 @@ class SettingPage extends StatelessWidget {
                     SettingPageMainPart(
                         objectiveText: 'Chaneg hour and minute',
                         objectiveIcon: 'Hr/min'),
-                    Divider(
-                      color: Colors.grey[100],
-                      height: 2.0,
-                    ),
                   ],
                 ),
               ),
@@ -56,7 +48,19 @@ class SettingPage extends StatelessWidget {
               ),
               Expanded(
                 flex: 1,
-                child: Text('Growth rate'),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20.0,
+                      horizontal: 40.0,
+                    ),
+                    child: Text(
+                      'Growth rate',
+                      style: TextStyle(fontSize: 25.0),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -77,20 +81,32 @@ class SettingPageMainPart extends StatelessWidget {
   // FIXME: Make objectiveIcon a icon widget
   final String objectiveIcon;
 
+  final bool switchTile = true;
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Make it Attractive maybe try using listTile or SwitchTile
     return Expanded(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Text('$objectiveText'),
-          ),
-          Expanded(
-            child: Text('$objectiveIcon'),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 15.0,
+          horizontal: 30.0,
+        ),
+        child: ListTile(
+          title: Text(objectiveText),
+          trailing: Text(objectiveIcon),
+        ),
       ),
     );
   }
 }
+
+// Row(
+//         children: <Widget>[
+//           Expanded(
+//             child: Text('$objectiveText'),
+//           ),
+//           Expanded(
+//             child: Text('$objectiveIcon'),
+//           ),
+//         ],
+//       ),
