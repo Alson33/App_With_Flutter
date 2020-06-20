@@ -1,3 +1,4 @@
+import 'package:HealthyApp/customPaints/colors.dart';
 import 'package:flutter/material.dart';
 
 // custom paint for the circle in upper part in home page
@@ -13,7 +14,7 @@ class UpperSmallCircle extends CustomPainter {
       ..lineTo(0, 0)
       ..close();
 
-    paint.color = Colors.blue[400];
+    paint.color = customMainColor;
 
     canvas.drawPath(path, paint);
   }
@@ -38,7 +39,7 @@ class LowerBigCircle extends CustomPainter {
       ..lineTo(0, size.height)
       ..close();
 
-    paint.color = Colors.blue[400];
+    paint.color = customMainColor;
 
     canvas.drawPath(path, paint);
   }
@@ -64,7 +65,7 @@ class UpperBigCircle extends CustomPainter {
       ..lineTo(size.width, 0)
       ..close();
 
-    paint.color = Colors.blue[400];
+    paint.color = customMainColor;
 
     canvas.drawPath(path, paint);
   }
@@ -88,7 +89,7 @@ class LowerSmallCircle extends CustomPainter {
       ..quadraticBezierTo(size.width/2, 0, size.width/2, size.height)
       ..lineTo(size.width, size.height);
 
-    paint.color = Colors.blue[400];
+    paint.color = customMainColor;
 
     canvas.drawPath(path, paint);
   }
