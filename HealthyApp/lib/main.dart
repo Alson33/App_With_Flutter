@@ -1,7 +1,7 @@
 import 'recipePages/recipePage.dart';
 import 'package:flutter/material.dart';
 import 'customPaints/customPaints.dart';
-import 'repeatedWidget.dart';
+import 'widgets/repeatedWidget.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,26 +61,26 @@ class HomePageMainPart extends StatefulWidget {
 }
 
 class _HomePageMainPartState extends State<HomePageMainPart> {
-  bool _isBottle = true;
-  Icon icon;
+  bool _isBottle = false;
+  ImageIcon icon;
   int _count = 1;
   int _countHour = 1;
 
 // TODO: Make Custom bottle and glass icon
-  Icon _changeBetweenBottleAndGlass() {
-    if (_isBottle){
-      printBottleStatus();
-      icon = Icon(Icons.ac_unit, color: Colors.black);
-    }else{
-      printBottleStatus();
-      icon = Icon(Icons.local_drink, color: Colors.black);
+  ImageIcon _changeBetweenBottleAndGlass() {
+    if (_isBottle) {
+      icon = ImageIcon(
+        AssetImage("assets/icons/bottle.ico"),
+        size: 350.0,
+      );
+    } else {
+      icon = ImageIcon(
+        AssetImage("assets/icons/glass.ico"),
+        size: 400.0,
+      );
     }
-      
-    return icon;
-  }
 
-  void printBottleStatus() {
-    print(_isBottle);
+    return icon;
   }
 
   @override
