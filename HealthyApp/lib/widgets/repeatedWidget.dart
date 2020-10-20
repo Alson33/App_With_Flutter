@@ -18,7 +18,7 @@ class TitleWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(left: 30.0),
         child: Align(
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.topLeft,
           child: Text(
             '$title',
             style: TextStyle(
@@ -71,10 +71,10 @@ class _BarWidgetState extends State<BarWidget> {
     return Expanded(
       flex: 1,
       child: Align(
-        alignment: Alignment.bottomRight,
+        alignment: Alignment.topRight,
         child: Container(
           padding: EdgeInsets.only(
-            top: 40.0,
+            top: 20.0,
             right: 20.0,
           ),
           child: IconButton(
@@ -89,7 +89,9 @@ class _BarWidgetState extends State<BarWidget> {
                 );
               } else {
                 // TODO: Add some data's to pass when returned from setting page
-                Navigator.pop(context, );
+                Navigator.pop(
+                  context,
+                );
               }
             },
           ),
