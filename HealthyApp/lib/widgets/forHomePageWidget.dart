@@ -3,72 +3,6 @@ import 'package:HealthyApp/strechPages/strechPage.dart';
 import 'package:flutter/material.dart';
 import 'package:HealthyApp/recipePages/recipePage.dart';
 
-class CounterWidget extends StatelessWidget {
-  const CounterWidget({
-    Key key,
-    @required this.isBottle,
-    @required this.count,
-    @required this.changeHandlerOne,
-    @required this.changeHandlerTwo,
-  }) : super(key: key);
-
-  final bool isBottle;
-  final int count;
-  final Function changeHandlerOne;
-  final Function changeHandlerTwo;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        // color: Colors.grey[50],
-        border: Border.all(width: 1.0, color: Colors.black),
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Row(
-        children: <Widget>[
-          // FIXME: Make attractive
-          Expanded(
-            child: Center(
-              child: IconButton(
-                iconSize: 30.0,
-                icon: Icon(
-                  Icons.remove,
-                  color: Colors.black,
-                ),
-                onPressed: changeHandlerOne,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Center(
-              child: Text(
-                '$count',
-                style: TextStyle(
-                  fontSize: 30.0,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Center(
-              child: IconButton(
-                iconSize: 30.0,
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.black,
-                ),
-                onPressed: changeHandlerTwo,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class EatHealthyWidget extends StatelessWidget {
   const EatHealthyWidget({
     Key key,
@@ -210,19 +144,20 @@ class DescriptionPart extends StatelessWidget {
                 textAlign: TextAlign.justify,
               ),
             ),
-            buttonTitle != null ?
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  child: RaisedButton(
-                    color: colorForButton,
-                    onPressed: () {},
-                    child: Text(buttonTitle),
-                  ),
-                ),
-              ),
-            ): Container(),
+            buttonTitle != null
+                ? Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        child: RaisedButton(
+                          color: colorForButton,
+                          onPressed: () {},
+                          child: Text(buttonTitle),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
