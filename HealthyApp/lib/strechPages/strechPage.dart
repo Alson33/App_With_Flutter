@@ -48,7 +48,6 @@ class StrechPage extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              BarWidget(isSettingPage: false),
               TitleWidget(title: 'Streches', color: Colors.black),
               Expanded(
                 flex: 6,

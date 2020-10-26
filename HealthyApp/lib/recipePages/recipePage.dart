@@ -1,5 +1,4 @@
 import 'package:HealthyApp/recipePages/recipeDetailPage.dart';
-import 'package:HealthyApp/widgets/forHomePageWidget.dart';
 import 'package:HealthyApp/widgets/repeatedWidget.dart';
 import 'package:flutter/material.dart';
 // import './listOfRecipe.dart';
@@ -51,7 +50,6 @@ class RecipePage extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
-              BarWidget(isSettingPage: false),
               TitleWidget(title: 'Recipes', color: Colors.black),
               Expanded(
                 flex: 6,
@@ -94,7 +92,10 @@ class RecipePage extends StatelessWidget {
                               children: <Widget>[
                                 // FIXME: Make attractive
                                 // Text('Name of the recipe.'),
-                                SmallTitleWidget(title: 'Name', color: Colors.black, align: Alignment.centerLeft),
+                                SmallTitleWidget(
+                                    title: 'Name',
+                                    color: Colors.black,
+                                    align: Alignment.centerLeft),
                                 // DescriptionPart(title: 'Name', descp: 'Infos...................', buttonTitle: 'Learn',),
                                 FlatButton(
                                   onPressed: () {},
