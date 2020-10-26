@@ -1,5 +1,6 @@
-import 'recipePages/recipePage.dart';
+import 'package:HealthyApp/services/Settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'customPaints/customPaints.dart';
 import 'widgets/repeatedWidget.dart';
 
@@ -11,7 +12,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      themeMode: ThemeMode.dark,
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<Settings>(
+            create: (context) => Settings(),
+          ),
+        ],
+        child: HomePage(),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -27,19 +36,18 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             // FIXME: Try to make animated transition
             CustomPaint(
-              painter: UpperSmallCircle(),
+              painter: UpperSmallCircle(context: context),
               size: Size.fromHeight(200),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: CustomPaint(
-                painter: LowerBigCircle(),
+                painter: LowerBigCircle(context: context),
                 size: Size.fromHeight(370),
               ),
             ),
             Column(
               children: <Widget>[
-                BarWidget(isSettingPage: false),
                 TitleWidget(title: 'Drink', color: Colors.white),
                 HomePageMainPart(),
               ],
@@ -61,77 +69,67 @@ class HomePageMainPart extends StatefulWidget {
 }
 
 class _HomePageMainPartState extends State<HomePageMainPart> {
-  bool _isBottle = true;
-  ImageIcon icon;
   int _count = 1;
-  int _countHour = 1;
-
-// TODO: Make Custom bottle and glass icon
-  ImageIcon _changeBetweenBottleAndGlass() {
-    if (_isBottle) {
-      icon = ImageIcon(
-        AssetImage("assets/icons/bottle.ico"),
-        size: 350.0,
-      );
-    } else {
-      icon = ImageIcon(
-        AssetImage("assets/icons/glass.ico"),
-        size: 400.0,
-      );
-    }
-
-    return icon;
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 5,
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Expanded(
-              flex: 4,
-              child: Container(
-                alignment: Alignment.topCenter,
-                child: Row(
-                  children: <Widget>[
-                    for (int i = 1; i <= _count; i++)
-                      Expanded(
-                        child: _changeBetweenBottleAndGlass(),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey[100].withOpacity(0.2),
-                  ),
-                  child: IconButton(
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    padding: EdgeInsets.all(20),
-                    icon: Icon(
-                      Icons.add,
+    // final settingArgs = Provider.of<Settings>(context);
+    return Consumer<Settings>(
+      builder: (context, settingArgs, child) {
+        return Expanded(
+          flex: 5,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      children: <Widget>[
+                        for (int i = 1; i <= _count; i++)
+                          Expanded(
+                            child: ImageIcon(
+                              settingArgs.isBottle
+                                  ? AssetImage('assets/icons/bottle.ico')
+                                  : AssetImage('assets/icons/glass.ico'),
+                              size: settingArgs.isBottle ? 350.0 : 400.0,
+                            ),
+                          ),
+                      ],
                     ),
-                    iconSize: 40,
-                    onPressed: () {
-                      _showSettingBottomSheet(context);
-                    },
                   ),
                 ),
-              ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey[100].withOpacity(0.2),
+                      ),
+                      child: IconButton(
+                        visualDensity: VisualDensity.adaptivePlatformDensity,
+                        padding: EdgeInsets.all(20),
+                        icon: Icon(
+                          Icons.settings,
+                        ),
+                        iconSize: MediaQuery.of(context).size.width * .08,
+                        onPressed: () {
+                          _showSettingBottomSheet(context);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -139,54 +137,47 @@ class _HomePageMainPartState extends State<HomePageMainPart> {
 void _showSettingBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
-    builder: (BuildContext bContext) {
+    builder: (BuildContext context) {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.45,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+        height: MediaQuery.of(context).size.height * 0.5,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Choose a medium:'),
+            BottomSheetTitle(
+              title: 'Choose a medium:',
             ),
             Row(
               children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.white10,
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
+                ChangeNotifierProvider(
+                  create: (context) => Settings(),
+                  child: Consumer<Settings>(
+                    builder: (context, value, child) {
+                      return CircularOptions(asset: 'bottle');
+                    },
                   ),
-                  width: 60,
-                  height: 60,
-                  child: Image.asset('assets/icons/bottle.ico'),
                 ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.white10,
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
+                ChangeNotifierProvider(
+                  create: (context) => Settings(),
+                  child: Consumer<Settings>(
+                    builder: (context, value, child) {
+                      return CircularOptions(asset: 'glass');
+                    },
                   ),
-                  width: 60,
-                  height: 60,
-                  child: Image.asset('assets/icons/glass.ico'),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('No of bottles:'),
+            BottomSheetTitle(
+              title: 'No of bottles:',
             ),
             Container(
-              padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
                     width: 50,
@@ -259,14 +250,14 @@ void _showSettingBottomSheet(BuildContext context) {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Remind me in:'),
+            BottomSheetTitle(
+              title: 'Remind me in:',
             ),
             Container(
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 10),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     width: 50,
@@ -344,4 +335,74 @@ void _showSettingBottomSheet(BuildContext context) {
       );
     },
   );
+}
+
+class CircularOptions extends StatefulWidget {
+  const CircularOptions({
+    Key key,
+    this.asset,
+  }) : super(key: key);
+
+  final String asset;
+
+  static bool sentBottle;
+  static String selectedIcon;
+
+  @override
+  _CircularOptionsState createState() => _CircularOptionsState();
+}
+
+class _CircularOptionsState extends State<CircularOptions> {
+  @override
+  Widget build(BuildContext context) {
+    final settingArgs = Provider.of<Settings>(context);
+
+    if (widget.asset == 'bottle')
+      CircularOptions.sentBottle = true;
+    else
+      CircularOptions.sentBottle = false;
+
+    if (settingArgs.isBottle)
+      CircularOptions.selectedIcon = 'bottle';
+    else
+      CircularOptions.selectedIcon = 'glass';
+
+    return GestureDetector(
+      onTap: () {
+        settingArgs.updateBottleSettings(CircularOptions.sentBottle);
+      },
+      child: Container(
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: CircularOptions.selectedIcon == widget.asset
+              ? Colors.amber
+              : Colors.white10,
+          border: Border.all(
+            color: Colors.black,
+          ),
+        ),
+        width: 60,
+        height: 60,
+        child: Image.asset('assets/icons/' + widget.asset + '.ico'),
+      ),
+    );
+  }
+}
+
+class BottomSheetTitle extends StatelessWidget {
+  const BottomSheetTitle({
+    Key key,
+    this.title,
+  }) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(title),
+    );
+  }
 }
