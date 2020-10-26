@@ -3,14 +3,25 @@ import 'package:flutter/material.dart';
 
 // custom paint for the circle in upper part in home page
 class UpperSmallCircle extends CustomPainter {
+  const UpperSmallCircle({
+    this.context,
+  });
+
+  final BuildContext context;
+
   @override
   void paint(Canvas canvas, Size size) {
     Path path = Path();
     Paint paint = Paint();
 
     path
-      ..lineTo(size.width / 2, 0)
-      ..quadraticBezierTo(size.width / 2, size.height, 0, size.height)
+      ..lineTo(MediaQuery.of(context).size.width / 2, 0)
+      ..quadraticBezierTo(
+        MediaQuery.of(context).size.width / 2,
+        MediaQuery.of(context).size.height * .3,
+        0,
+        MediaQuery.of(context).size.height * .3,
+      )
       ..lineTo(0, 0)
       ..close();
 
@@ -28,15 +39,32 @@ class UpperSmallCircle extends CustomPainter {
 
 // custom paint for the circle in lower part in home page
 class LowerBigCircle extends CustomPainter {
+  LowerBigCircle({
+    this.context,
+  });
+
+  final BuildContext context;
+
   @override
   void paint(Canvas canvas, Size size) {
     Path path = Path();
     Paint paint = Paint();
 
     path
-      ..quadraticBezierTo(size.width / 2, -100, size.width, 0)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
+      ..quadraticBezierTo(
+        MediaQuery.of(context).size.width / 2,
+        -100,
+        MediaQuery.of(context).size.width,
+        0,
+      )
+      ..lineTo(
+        MediaQuery.of(context).size.width,
+        MediaQuery.of(context).size.height,
+      )
+      ..lineTo(
+        0,
+        MediaQuery.of(context).size.height,
+      )
       ..close();
 
     paint.color = customMainColor;
@@ -53,16 +81,29 @@ class LowerBigCircle extends CustomPainter {
 
 // custom paint for the circle in upper part of the setting page
 class UpperBigCircle extends CustomPainter {
+  UpperBigCircle({
+    this.context,
+  });
+
+  final BuildContext context;
+
   @override
   void paint(Canvas canvas, Size size) {
     Path path = Path();
     Paint paint = Paint();
 
     path
-      ..lineTo(0, size.height)
+      ..lineTo(0, MediaQuery.of(context).size.height * .5)
       ..quadraticBezierTo(
-          size.width / 2, size.height + 100, size.width, size.height)
-      ..lineTo(size.width, 0)
+        MediaQuery.of(context).size.width / 2,
+        MediaQuery.of(context).size.height * .6,
+        MediaQuery.of(context).size.width,
+        MediaQuery.of(context).size.height * .5,
+      )
+      ..lineTo(
+        MediaQuery.of(context).size.width,
+        0,
+      )
       ..close();
 
     paint.color = customMainColor;
@@ -79,15 +120,29 @@ class UpperBigCircle extends CustomPainter {
 
 // custom paint for the circle in upper part of the setting page
 class LowerSmallCircle extends CustomPainter {
+  LowerSmallCircle({
+    this.context,
+  });
+
+  final BuildContext context;
+
   @override
   void paint(Canvas canvas, Size size) {
     Path path = Path();
     Paint paint = Paint();
 
     path
-      ..moveTo(size.width, 0)
-      ..quadraticBezierTo(size.width/2, 0, size.width/2, size.height)
-      ..lineTo(size.width, size.height);
+      ..moveTo(MediaQuery.of(context).size.width, 0)
+      ..quadraticBezierTo(
+        MediaQuery.of(context).size.width * .4,
+        0,
+        MediaQuery.of(context).size.width * .4,
+        MediaQuery.of(context).size.height * .7,
+      )
+      ..lineTo(
+        MediaQuery.of(context).size.width,
+        MediaQuery.of(context).size.height,
+      );
 
     paint.color = customMainColor;
 
