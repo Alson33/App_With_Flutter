@@ -37,76 +37,68 @@ class StrechPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          // TODO: Make a custom paint for strech page
-          // CustomPaint(),
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.transparent,
-          ),
-          Column(
-            children: <Widget>[
-              TitleWidget(title: 'Streches', color: Colors.black),
-              Expanded(
-                flex: 6,
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      margin: EdgeInsets.all(20.0),
-                      color: Colors.grey[100],
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 2,
-                            child: GestureDetector(
-                              child: Hero(
-                                // FIXME: Give appropriate tag and actual dish arts
-                                tag: _streches[index]['tags'],
-                                child: Image(
-                                  image: _streches[index]['image'],
-                                  fit: BoxFit.cover,
-                                ),
-                                // TODO: Make dish arts
+      body: Container(
+        color: Colors.amberAccent,
+        child: Column(
+          children: <Widget>[
+            TitleWidget(title: 'Streches', color: Colors.white),
+            Expanded(
+              flex: 6,
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    margin: EdgeInsets.all(20.0),
+                    color: Colors.grey[100],
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: GestureDetector(
+                            child: Hero(
+                              // FIXME: Give appropriate tag and actual dish arts
+                              tag: _streches[index]['tags'],
+                              child: Image(
+                                image: _streches[index]['image'],
+                                fit: BoxFit.cover,
                               ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => StrechDetailPage(
-                                      image: _streches[index]['image'],
-                                      tag: _streches[index]['tags'],
-                                    ),
+                              // TODO: Make dish arts
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => StrechDetailPage(
+                                    image: _streches[index]['image'],
+                                    tag: _streches[index]['tags'],
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              children: <Widget>[
-                                // FIXME: Make attractive
-                                Text('Name of the strech.'),
-                                Text('Infos....'),
-                                FlatButton(
-                                  onPressed: () {},
-                                  child: Text('Strech'),
                                 ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              // FIXME: Make attractive
+                              Text('Name of the strech.'),
+                              Text('Infos....'),
+                              FlatButton(
+                                onPressed: () {},
+                                child: Text('Strech'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -15,18 +15,13 @@ class TitleWidget extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Container(
-        padding: EdgeInsets.only(
-          left: 30.0,
-          top: 30.0,
-        ),
-        child: Align(
-          alignment: Alignment.topLeft,
+        child: Center(
           child: Text(
             '$title',
             style: TextStyle(
-              fontSize: 30.0,
-              decoration: TextDecoration.underline,
+              fontSize: MediaQuery.of(context).size.width * 0.1,
               color: color,
+              fontFamily: 'cursive',
             ),
           ),
         ),
@@ -56,7 +51,6 @@ class SmallTitleWidget extends StatelessWidget {
           title,
           style: TextStyle(
             fontSize: 20,
-            decoration: TextDecoration.underline,
             color: color,
             fontWeight: FontWeight.bold,
           ),

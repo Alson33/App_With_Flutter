@@ -39,80 +39,72 @@ class RecipePage extends StatelessWidget {
     // List<String> _images = listOfRecipe.giveImage();
 
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          // TODO: Make a custom paint for recipe page
-          // CustomPaint(),
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: Colors.transparent,
-          ),
-          Column(
-            children: <Widget>[
-              TitleWidget(title: 'Recipes', color: Colors.black),
-              Expanded(
-                flex: 6,
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      margin: EdgeInsets.all(20.0),
-                      color: Colors.grey[100],
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 2,
-                            child: GestureDetector(
-                              child: Hero(
-                                // FIXME: Give appropriate tag and actual dish arts
-                                tag: _recipes[index]['tags'],
-                                child: Image(
-                                  image: _recipes[index]['image'],
-                                  fit: BoxFit.cover,
-                                ),
-                                // TODO: Make dish arts
+      body: Container(
+        color: Colors.lightGreen,
+        child: Column(
+          children: <Widget>[
+            TitleWidget(title: 'Recipes', color: Colors.white),
+            Expanded(
+              flex: 6,
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    margin: EdgeInsets.all(20.0),
+                    color: Colors.grey[100],
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: GestureDetector(
+                            child: Hero(
+                              // FIXME: Give appropriate tag and actual dish arts
+                              tag: _recipes[index]['tags'],
+                              child: Image(
+                                image: _recipes[index]['image'],
+                                fit: BoxFit.cover,
                               ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RecipeDetailPage(
-                                      image: _recipes[index]['image'],
-                                      tag: _recipes[index]['tags'],
-                                    ),
+                              // TODO: Make dish arts
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RecipeDetailPage(
+                                    image: _recipes[index]['image'],
+                                    tag: _recipes[index]['tags'],
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              children: <Widget>[
-                                // FIXME: Make attractive
-                                // Text('Name of the recipe.'),
-                                SmallTitleWidget(
-                                    title: 'Name',
-                                    color: Colors.black,
-                                    align: Alignment.centerLeft),
-                                // DescriptionPart(title: 'Name', descp: 'Infos...................', buttonTitle: 'Learn',),
-                                FlatButton(
-                                  onPressed: () {},
-                                  child: Text('Learn'),
                                 ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              // FIXME: Make attractive
+                              // Text('Name of the recipe.'),
+                              SmallTitleWidget(
+                                  title: 'Name',
+                                  color: Colors.black,
+                                  align: Alignment.centerLeft),
+                              // DescriptionPart(title: 'Name', descp: 'Infos...................', buttonTitle: 'Learn',),
+                              FlatButton(
+                                onPressed: () {},
+                                child: Text('Learn'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
