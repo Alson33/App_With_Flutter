@@ -1,4 +1,4 @@
-import 'package:HealthyApp/services/SettingDb.dart';
+import 'package:healthy_app/services/SettingDb.dart';
 import 'package:flutter/material.dart';
 import 'services/Settings.dart';
 import 'package:provider/provider.dart';

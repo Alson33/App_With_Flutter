@@ -1,5 +1,5 @@
-import 'package:HealthyApp/services/SettingDb.dart';
-import 'package:HealthyApp/services/setting.dart';
+import 'package:healthy_app/services/SettingDb.dart';
+import 'package:healthy_app/services/setting.dart';
 import 'package:flutter/cupertino.dart';
 
 class Settings extends ChangeNotifier {

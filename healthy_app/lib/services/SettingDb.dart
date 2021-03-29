@@ -1,4 +1,4 @@
-import 'package:HealthyApp/services/setting.dart';
+import 'package:healthy_app/services/setting.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SettingDB {

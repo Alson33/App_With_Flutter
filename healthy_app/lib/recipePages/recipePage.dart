@@ -1,5 +1,5 @@
-import 'package:HealthyApp/recipePages/recipeDetailPage.dart';
-import 'package:HealthyApp/widgets/repeatedWidget.dart';
+import 'package:healthy_app/recipePages/recipeDetailPage.dart';
+import 'package:healthy_app/widgets/repeatedWidget.dart';
 import 'package:flutter/material.dart';
 // import './listOfRecipe.dart';
 

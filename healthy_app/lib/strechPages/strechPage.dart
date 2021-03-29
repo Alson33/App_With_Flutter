@@ -1,4 +1,4 @@
-import 'package:HealthyApp/widgets/repeatedWidget.dart';
+import 'package:healthy_app/widgets/repeatedWidget.dart';
 import 'package:flutter/material.dart';
 import './strechDetailPage.dart';
 // import './listOfRecipe.dart';
