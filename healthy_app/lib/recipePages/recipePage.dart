@@ -45,17 +45,19 @@ class RecipePage extends StatelessWidget {
           children: <Widget>[
             TitleWidget(title: 'Recipes', color: Colors.white),
             Expanded(
-              flex: 6,
+              flex: 2,
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: 4,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
+                  return Container(
+                    width: MediaQuery.of(context).size.width - 50.0,
+                    height: MediaQuery.of(context).size.height - 400.0,
                     margin: EdgeInsets.all(20.0),
-                    color: Colors.grey[100],
-                    child: Row(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: GestureDetector(
                             child: Hero(
                               // FIXME: Give appropriate tag and actual dish arts
@@ -80,21 +82,11 @@ class RecipePage extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              // FIXME: Make attractive
-                              // Text('Name of the recipe.'),
-                              SmallTitleWidget(
-                                  title: 'Name',
-                                  color: Colors.black,
-                                  align: Alignment.centerLeft),
-                              // DescriptionPart(title: 'Name', descp: 'Infos...................', buttonTitle: 'Learn',),
-                              FlatButton(
-                                onPressed: () {},
-                                child: Text('Learn'),
-                              ),
-                            ],
+                          flex: 1,
+                          child: SmallTitleWidget(
+                            title: 'Name',
+                            color: Colors.black,
+                            align: Alignment.center,
                           ),
                         ),
                       ],

@@ -1,7 +1,6 @@
 import 'package:healthy_app/recipePages/recipePage.dart';
 import 'package:healthy_app/services/SettingDb.dart';
 import 'package:healthy_app/services/Settings.dart';
-import 'package:healthy_app/services/setting.dart';
 import 'package:healthy_app/strechPages/strechPage.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
