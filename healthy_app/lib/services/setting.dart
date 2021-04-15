@@ -14,15 +14,15 @@ class Setting {
     this.timeToRemind,
   });
 
-  int id;
-  bool medium;
-  int amountOfDrinks;
-  int timeToRemind;
+  int? id;
+  bool? medium;
+  int? amountOfDrinks;
+  int? timeToRemind;
 
-  int get getId => id;
-  int get getAmount => amountOfDrinks;
-  int get getTime => timeToRemind;
-  bool get getMedium => medium;
+  int? get getId => id;
+  int? get getAmount => amountOfDrinks;
+  int? get getTime => timeToRemind;
+  bool? get getMedium => medium;
 
   factory Setting.fromJson(Map<String, dynamic> json) => Setting(
         id: json[SettingDB.settingDB.columnId],

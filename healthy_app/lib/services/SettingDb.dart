@@ -11,9 +11,9 @@ class SettingDB {
   SettingDB._();
   static final SettingDB settingDB = SettingDB._();
 
-  Database _db;
+  Database? _db;
 
-  Future<Database> get database async {
+  Future<Database?> get database async {
     if (_db != null) {
       return _db;
     }
@@ -56,7 +56,7 @@ class SettingDB {
 
   void insert(Setting settings) async {
     final db = await this.database;
-    var result = await db.insert(tableName, settings.toJson());
+    var result = await db!.insert(tableName, settings.toJson());
     print("result:  $result");
   }
 
@@ -64,7 +64,7 @@ class SettingDB {
     List<Setting> settingList = [];
 
     final db = await this.database;
-    final result = await db.query(tableName);
+    final result = await db!.query(tableName);
 
     result.forEach((setting) {
       var settingInfo = Setting.fromJson(setting);
@@ -74,9 +74,9 @@ class SettingDB {
     return settingList;
   }
 
-  void update(Setting settings) async {
+  Future<void> update(Setting settings) async {
     final db = await this.database;
-    final result = await db.update(
+    final result = await db!.update(
       tableName,
       settings.toJson(),
       where: '$columnId = ?',

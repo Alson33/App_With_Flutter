@@ -8,7 +8,7 @@ import './strechDetailPage.dart';
 class StrechPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var _streches = [
+    List _streches = [
       {
         'image': AssetImage('assets/images/exeIcon.jpg'),
         'tags': 'image 11',
@@ -61,7 +61,7 @@ class StrechPage extends StatelessWidget {
                               // FIXME: Give appropriate tag and actual dish arts
                               tag: _streches[index]['tags'],
                               child: Image(
-                                image: _streches[index]['image'],
+                                image: _streches[index]["image"],
                                 fit: BoxFit.cover,
                               ),
                               // TODO: Make dish arts
@@ -71,8 +71,8 @@ class StrechPage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => StrechDetailPage(
-                                    image: _streches[index]['image'],
-                                    tag: _streches[index]['tags'],
+                                    image: _streches[index]["image"],
+                                    tag: _streches[index]["tags"],
                                   ),
                                 ),
                               );

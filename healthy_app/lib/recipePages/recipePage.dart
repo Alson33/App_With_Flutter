@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class RecipePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var _recipes = [
+    List _recipes = [
       {
         'image': AssetImage('assets/images/vegeIcon.jpg'),
         'tags': 'image 1',
@@ -61,9 +61,9 @@ class RecipePage extends StatelessWidget {
                           child: GestureDetector(
                             child: Hero(
                               // FIXME: Give appropriate tag and actual dish arts
-                              tag: _recipes[index]['tags'],
+                              tag: _recipes[index]['tags']!,
                               child: Image(
-                                image: _recipes[index]['image'],
+                                image: _recipes[index]["image"],
                                 fit: BoxFit.cover,
                               ),
                               // TODO: Make dish arts
@@ -73,8 +73,8 @@ class RecipePage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => RecipeDetailPage(
-                                    image: _recipes[index]['image'],
-                                    tag: _recipes[index]['tags'],
+                                    image: _recipes[index]["image"],
+                                    tag: _recipes[index]["tags"],
                                   ),
                                 ),
                               );

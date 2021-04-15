@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 // TODO: Lots of work to do here
 class StrechDetailPage extends StatelessWidget {
   const StrechDetailPage({
-    Key key,
+    Key? key,
     @required this.image,
     @required this.tag,
   }) : super(key: key);
 
-  final AssetImage image;
-  final String tag;
+  final AssetImage? image;
+  final String? tag;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,9 @@ class StrechDetailPage extends StatelessWidget {
                     width: double.infinity,
                     height: 300,
                     child: Hero(
-                      tag: tag,
+                      tag: tag!,
                       child: Image(
-                        image: image,
+                        image: image!,
                         fit: BoxFit.contain,
                       ),
                     ),

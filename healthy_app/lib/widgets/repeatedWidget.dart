@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class TitleWidget extends StatelessWidget {
   TitleWidget({
-    Key key,
+    Key? key,
     @required this.title,
     @required this.color,
   }) : super(key: key);
 
-  final String title;
-  final Color color;
+  final String? title;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +32,23 @@ class TitleWidget extends StatelessWidget {
 
 class SmallTitleWidget extends StatelessWidget {
   const SmallTitleWidget({
-    Key key,
+    Key? key,
     @required this.title,
     @required this.color,
     @required this.align,
   }) : super(key: key);
 
-  final String title;
-  final Color color;
-  final Alignment align;
+  final String? title;
+  final Color? color;
+  final Alignment? align;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Align(
-        alignment: align,
+        alignment: align!,
         child: Text(
-          title,
+          title!,
           style: TextStyle(
             fontSize: 20,
             color: color,

@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.dark,
+      theme: ThemeData(
+        canvasColor: Colors.transparent,
+      ),
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider<Settings>(
@@ -45,7 +48,6 @@ class HomePage extends StatelessWidget {
           ],
           initialPage: 0,
           waveType: WaveType.liquidReveal,
-          enableSlideIcon: true,
           fullTransitionValue: 600,
           ignoreUserGestureWhileAnimating: true,
         ),
@@ -62,14 +64,14 @@ class DrinkPage extends StatefulWidget {
 class _DrinkPageState extends State<DrinkPage> {
   @override
   void initState() {
-    SettingDB.settingDB.database.then((_) {
-      print("open db");
+    // SettingDB.settingDB.database.then((_) {
+    //   print("open db");
 
-      Provider.of<Settings>(
-        context,
-        listen: false,
-      ).setSetting();
-    });
+    //   Provider.of<Settings>(
+    //     context,
+    //     listen: false,
+    //   ).setSetting();
+    // });
     super.initState();
   }
 
