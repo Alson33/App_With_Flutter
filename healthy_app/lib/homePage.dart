@@ -1,6 +1,4 @@
-import 'package:healthy_app/services/SettingDb.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_app/services/setting.dart';
 import 'services/Settings.dart';
 import 'package:provider/provider.dart';
 
@@ -14,138 +12,91 @@ class HomePageMainPart extends StatefulWidget {
 }
 
 class _HomePageMainPartState extends State<HomePageMainPart> {
-  bool? _isBottle;
-
   @override
   Widget build(BuildContext context) {
-    final settingArgs = Provider.of<Settings>(context);
-    print("hello");
-    print(settingArgs.noOfDrinks);
-    _isBottle = settingArgs.isBottle;
-    return ChangeNotifierProvider<Settings>(
-      create: (context) => Settings(),
-      child: Expanded(
-        flex: 5,
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: settingArgs.noOfDrinks == 1
-                    ? ImageIcon(
-                        _isBottle == null || _isBottle == true
-                            ? AssetImage('assets/icons/bottle.ico')
-                            : AssetImage('assets/icons/glass.ico'),
-                        size: _isBottle == null || _isBottle == true
-                            ? 350.0
-                            : 400.0,
-                      )
-                    : GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                        scrollDirection: Axis.vertical,
-                        itemCount: settingArgs.noOfDrinks,
-                        itemBuilder: (context, index) => Column(
-                          children: [
-                            Expanded(
-                              child: ImageIcon(
-                                _isBottle == null || _isBottle == true
-                                    ? AssetImage('assets/icons/bottle.ico')
-                                    : AssetImage('assets/icons/glass.ico'),
-                                size: _isBottle == null || _isBottle == true
-                                    ? 350.0
-                                    : 400.0,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                              child: Container(
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                color: Colors.yellowAccent,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-              ),
+    final settingArgs = Provider.of<Settings>(
+      context,
+      listen: false,
+    );
 
-              // Expanded(
-              //   flex: 4,
-              //   child: FutureBuilder(
-              //     future: SettingDB.settingDB.getSetting().then((value) {
-              //       Provider.of<Settings>(context).setSetting();
-              //     }),
-              //     builder: (context, snapshot) => Container(
-              //       alignment: Alignment.center,
-              //       child: settingArgs.noOfDrinks == 1
-              //           ? ImageIcon(
-              //               settingArgs.isBottle
-              //                   ? AssetImage('assets/icons/bottle.ico')
-              //                   : AssetImage('assets/icons/glass.ico'),
-              //               size: settingArgs.isBottle ? 350.0 : 400.0,
-              //             )
-              //           : GridView.builder(
-              //               gridDelegate:
-              //                   SliverGridDelegateWithFixedCrossAxisCount(
-              //                 crossAxisCount: 2,
-              //               ),
-              //               scrollDirection: Axis.vertical,
-              //               itemCount: settingArgs.noOfDrinks,
-              //               itemBuilder: (context, index) => Column(
-              //                 children: [
-              //                   Expanded(
-              //                     child: ImageIcon(
-              //                       settingArgs.isBottle
-              //                           ? AssetImage('assets/icons/bottle.ico')
-              //                           : AssetImage('assets/icons/glass.ico'),
-              //                       size: settingArgs.isBottle ? 350.0 : 400.0,
-              //                     ),
-              //                   ),
-              //                   SizedBox(
-              //                     height: 5.0,
-              //                     child: Container(
-              //                       margin: EdgeInsets.symmetric(
-              //                         horizontal: 10,
-              //                       ),
-              //                       color: Colors.yellowAccent,
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //     ),
-              //   ),
-              // ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey[100]!.withOpacity(0.2),
-                    ),
-                    child: IconButton(
-                      visualDensity: VisualDensity.adaptivePlatformDensity,
-                      padding: EdgeInsets.all(20),
-                      icon: Icon(
-                        Icons.settings,
+    return Expanded(
+      flex: 5,
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(
+              flex: 4,
+              child: settingArgs.noOfDrinks == 1 ||
+                      settingArgs.noOfDrinks == null
+                  ? ImageIcon(
+                      settingArgs.isBottle == null ||
+                              settingArgs.isBottle == true
+                          ? AssetImage('assets/icons/bottle.ico')
+                          : AssetImage('assets/icons/glass.ico'),
+                      size: settingArgs.isBottle == null ||
+                              settingArgs.isBottle == true
+                          ? 350.0
+                          : 400.0,
+                    )
+                  : GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
                       ),
-                      iconSize: MediaQuery.of(context).size.width * .08,
-                      onPressed: () {
-                        _showSettingBottomSheet(context);
-                      },
+                      scrollDirection: Axis.vertical,
+                      itemCount: settingArgs.noOfDrinks,
+                      itemBuilder: (context, index) => Column(
+                        children: [
+                          Expanded(
+                            child: ImageIcon(
+                              settingArgs.isBottle == null ||
+                                      settingArgs.isBottle == true
+                                  ? AssetImage('assets/icons/bottle.ico')
+                                  : AssetImage('assets/icons/glass.ico'),
+                              size: settingArgs.isBottle == null ||
+                                      settingArgs.isBottle == true
+                                  ? 350.0
+                                  : 400.0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              color: Colors.yellowAccent,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey[100]!.withOpacity(0.2),
+                  ),
+                  child: IconButton(
+                    visualDensity: VisualDensity.adaptivePlatformDensity,
+                    padding: EdgeInsets.all(20),
+                    icon: Icon(
+                      Icons.settings,
+                    ),
+                    iconSize: MediaQuery.of(context).size.width * .08,
+                    onPressed: () {
+                      _showSettingBottomSheet(context);
+                    },
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -156,16 +107,8 @@ void _showSettingBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
-      return ChangeNotifierProvider<Settings>(
-        create: (context) => Settings(),
-        child:
-            // FutureBuilder(
-            //   future: SettingDB.settingDB.getSetting().then((value) {
-            //     Provider.of<Settings>(context).setSetting();
-            //   }),
-            //   builder: (context, snapshot) {
-            //     return
-            Container(
+      return Consumer<Settings>(
+        builder: (context, value, child) => Container(
           color: Colors.transparent,
           height: MediaQuery.of(context).size.height * 0.5,
           child: Container(
@@ -225,7 +168,10 @@ class TimeToRemind extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingArgs = Provider.of<Settings>(context);
+    final settingArgs = Provider.of<Settings>(
+      context,
+      listen: false,
+    );
 
     return ListView.builder(
       itemCount: _maxTimeCount,
@@ -260,7 +206,11 @@ class NoOfDrinks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingArgs = Provider.of<Settings>(context);
+    final settingArgs = Provider.of<Settings>(
+      context,
+      listen: false,
+    );
+
     return ListView.builder(
       itemCount: _maxCount,
       scrollDirection: Axis.horizontal,
@@ -308,7 +258,11 @@ class CircularOptions extends StatefulWidget {
 class _CircularOptionsState extends State<CircularOptions> {
   @override
   Widget build(BuildContext context) {
-    final settingArgs = Provider.of<Settings>(context);
+    final settingArgs = Provider.of<Settings>(
+      context,
+      listen: false,
+    );
+    print(settingArgs.isBottle);
 
     if (settingArgs.isBottle == null || settingArgs.isBottle == true)
       CircularOptions.selectedIcon = 'bottle';
@@ -317,7 +271,7 @@ class _CircularOptionsState extends State<CircularOptions> {
 
     return GestureDetector(
       onTap: () {
-        settingArgs.updateBottleSettings(widget.sentBottle);
+        settingArgs.updateBottleSettings(widget.sentBottle!);
       },
       child: Container(
         margin: EdgeInsets.all(10),
