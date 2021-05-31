@@ -14,6 +14,7 @@ class StrechDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amberAccent,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -21,6 +22,17 @@ class StrechDetailPage extends StatelessWidget {
               flex: 3,
               child: Stack(
                 children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    height: 300,
+                    child: Hero(
+                      tag: tag!,
+                      child: Image(
+                        image: image!,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                   Container(
                     width: double.infinity,
                     height: 60.0,
@@ -35,17 +47,6 @@ class StrechDetailPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 300,
-                    child: Hero(
-                      tag: tag!,
-                      child: Image(
-                        image: image!,
-                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
