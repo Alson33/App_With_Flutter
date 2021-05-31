@@ -1,5 +1,4 @@
 import 'package:healthy_app/recipePages/recipePage.dart';
-import 'package:healthy_app/services/SettingDb.dart';
 import 'package:healthy_app/services/Settings.dart';
 import 'package:healthy_app/strechPages/strechPage.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +29,9 @@ class MyApp extends StatelessWidget {
     this.time,
   });
 
-  bool? isBottle;
-  int? noOfDrinks;
-  int? time;
+  final bool? isBottle;
+  final int? noOfDrinks;
+  final int? time;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +51,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.dark,
           theme: ThemeData(
             canvasColor: Colors.transparent,
+            fontFamily: 'Poppins',
           ),
           home: HomePage(),
         );

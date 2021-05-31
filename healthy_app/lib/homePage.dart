@@ -311,7 +311,6 @@ class BottomSheetTitle extends StatelessWidget {
         title!,
         style: TextStyle(
           fontSize: 20.0,
-          fontFamily: 'monospace',
         ),
       ),
     );
