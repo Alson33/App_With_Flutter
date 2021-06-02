@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:healthy_app/strechPages/listOfStreches.dart';
 
-// TODO: Lots of work to do here
 class StrechDetailPage extends StatelessWidget {
-  const StrechDetailPage({
+  StrechDetailPage({
     Key? key,
-    @required this.image,
-    @required this.tag,
+    required this.index,
   }) : super(key: key);
 
-  final AssetImage? image;
-  final String? tag;
+  final int index;
+  final ListOfStreches _listOfStreches = new ListOfStreches();
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +25,9 @@ class StrechDetailPage extends StatelessWidget {
                     width: double.infinity,
                     height: 300,
                     child: Hero(
-                      tag: tag!,
+                      tag: _listOfStreches.getTag(index),
                       child: Image(
-                        image: image!,
+                        image: _listOfStreches.getImage(index),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -36,7 +35,7 @@ class StrechDetailPage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 60.0,
-                    color: Colors.white60,
+                    color: Colors.white10,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: IconButton(

@@ -1,40 +1,12 @@
+import 'package:healthy_app/strechPages/listOfStreches.dart';
 import 'package:healthy_app/widgets/repeatedWidget.dart';
 import 'package:flutter/material.dart';
 import './strechDetailPage.dart';
-// import './listOfRecipe.dart';
-
-// ListOfRecipe listOfRecipe;
 
 class StrechPage extends StatelessWidget {
+  final ListOfStreches _listOfStreches = new ListOfStreches();
   @override
   Widget build(BuildContext context) {
-    List _streches = [
-      {
-        'image': AssetImage('assets/images/streches/ball-strech.png'),
-        'tags': 'ball-strech-image',
-        'name': 'Ball Strech',
-        'steps': ['S1 one', 'S1 two', 'S1 three'],
-      },
-      {
-        'image': AssetImage('assets/images/streches/cycling.png'),
-        'tags': 'cycling-image',
-        'name': 'Cycling',
-        'steps': ['S2 one', 'S2 two', 'S2 three'],
-      },
-      {
-        'image': AssetImage('assets/images/streches/sideStrech.png'),
-        'tags': 'side-strech-image',
-        'name': 'Side Strech',
-        'steps': ['S3 one', 'S3 two', 'S3 three'],
-      },
-      {
-        'image': AssetImage('assets/images/streches/sitUps.png'),
-        'tags': 'sit-up-image',
-        'name': 'Sit Ups',
-        'steps': ['S4 one', 'S4 two', 'S4 three'],
-      },
-    ];
-
     return Scaffold(
       backgroundColor: Colors.amberAccent,
       body: Column(
@@ -49,6 +21,7 @@ class StrechPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 50.0,
                   height: MediaQuery.of(context).size.height - 550.0,
                   margin: EdgeInsets.all(20.0),
+                  color: Colors.amber[400],
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -56,9 +29,9 @@ class StrechPage extends StatelessWidget {
                         height: 200,
                         child: GestureDetector(
                           child: Hero(
-                            tag: _streches[index]['tags'],
+                            tag: _listOfStreches.getTag(index),
                             child: Image(
-                              image: _streches[index]["image"],
+                              image: _listOfStreches.getImage(index),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -67,8 +40,7 @@ class StrechPage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => StrechDetailPage(
-                                  image: _streches[index]["image"],
-                                  tag: _streches[index]["tags"],
+                                  index: index,
                                 ),
                               ),
                             );
@@ -76,7 +48,7 @@ class StrechPage extends StatelessWidget {
                         ),
                       ),
                       SmallTitleWidget(
-                        title: _streches[index]["name"],
+                        title: _listOfStreches.getName(index),
                         color: Colors.black,
                         align: Alignment.center,
                       ),

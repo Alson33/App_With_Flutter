@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:healthy_app/recipePages/listOfRecipe.dart';
 
-// TODO: Lots of work to do here
 class RecipeDetailPage extends StatelessWidget {
-  const RecipeDetailPage({
+  RecipeDetailPage({
     Key? key,
-    @required this.image,
-    @required this.tag,
+    required this.index,
   }) : super(key: key);
 
-  final AssetImage? image;
-  final String? tag;
+  final int index;
+
+  final ListOfRecipe _listOfRecipe = new ListOfRecipe();
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +34,16 @@ class RecipeDetailPage extends StatelessWidget {
                   ),
                   height: 300,
                   child: Hero(
-                    tag: tag!,
+                    tag: _listOfRecipe.getTag(index),
                     child: Image(
-                      image: image!,
+                      image: _listOfRecipe.getImage(index),
                       fit: BoxFit.contain,
                     ),
                   ),
                 ),
                 Container(
                   width: double.infinity,
-                  color: Colors.white60,
+                  color: Colors.white10,
                   height: 60.0,
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -69,16 +69,14 @@ class RecipeDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Salad',
+                      _listOfRecipe.getName(index),
                       style: TextStyle(fontSize: 30.0),
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
                     Text(
-                      'Salad is the basic and most healthy vegan recipe out there. With freshly plucked vegitables we can easily create a salad anytime anywhere. Just wash some vegies and cut them to eatable pieces',
-                      // overflow: TextOverflow.ellipsis,
-                      // maxLines: 3,
+                      _listOfRecipe.getDescription(index),
                       textAlign: TextAlign.justify,
                     ),
                   ],
