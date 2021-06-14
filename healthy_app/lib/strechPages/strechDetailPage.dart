@@ -15,14 +15,23 @@ class StrechDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.amberAccent,
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Stack(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Stack(
                 children: <Widget>[
                   Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
                     width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.amber[400],
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.black12,
+                        ),
+                      ),
+                    ),
                     height: 300,
                     child: Hero(
                       tag: _listOfStreches.getTag(index),
@@ -34,8 +43,8 @@ class StrechDetailPage extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    height: 60.0,
                     color: Colors.white10,
+                    height: 60.0,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: IconButton(
@@ -51,8 +60,53 @@ class StrechDetailPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          ],
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 20.0,
+                ),
+                color: Colors.amber[400],
+                child: Text(
+                  _listOfStreches.getName(index),
+                  style: TextStyle(fontSize: 30.0),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      _listOfStreches.getDescription(index),
+                      textAlign: TextAlign.justify,
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      'Instructions',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    Container(
+                      height: 400,
+                      child: Text(
+                        _listOfStreches.getInstruction(index),
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

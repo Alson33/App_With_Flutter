@@ -17,61 +17,70 @@ class RecipeDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.lightGreen,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.black54,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    width: double.infinity,
+                    // color: Colors.lightGreen[600],
+                    decoration: BoxDecoration(
+                      color: Colors.lightGreen[600],
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.black12,
+                        ),
+                      ),
+                    ),
+                    height: 300,
+                    child: Hero(
+                      tag: _listOfRecipe.getTag(index),
+                      child: Image(
+                        image: _listOfRecipe.getImage(index),
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                  height: 300,
-                  child: Hero(
-                    tag: _listOfRecipe.getTag(index),
-                    child: Image(
-                      image: _listOfRecipe.getImage(index),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  color: Colors.white10,
-                  height: 60.0,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.black,
+                  Container(
+                    width: double.infinity,
+                    color: Colors.white10,
+                    height: 60.0,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
                     ),
                   ),
+                ],
+              ),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 20.0,
                 ),
-              ],
-            ),
-            SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Padding(
+                color: Colors.lightGreen[600],
+                child: Text(
+                  _listOfRecipe.getName(index),
+                  style: TextStyle(fontSize: 30.0),
+                ),
+              ),
+              Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      _listOfRecipe.getName(index),
-                      style: TextStyle(fontSize: 30.0),
-                    ),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -79,11 +88,36 @@ class RecipeDetailPage extends StatelessWidget {
                       _listOfRecipe.getDescription(index),
                       textAlign: TextAlign.justify,
                     ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      'Steps to cook',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    Container(
+                      height: 400,
+                      child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: _listOfRecipe.getStepCount(index),
+                          itemBuilder: (context, ind) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 8.0,
+                                // horizontal: 12.0,
+                              ),
+                              child: Text(_listOfRecipe.getSteps(index)[ind]),
+                            );
+                          }),
+                    ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
